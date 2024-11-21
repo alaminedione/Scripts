@@ -174,6 +174,16 @@ if confirm_action "Do you want to install whitesur theme(MacOS like theme for al
     cd ..
     rm -rf Kvantum
 
+    #install macOs icons
+    git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
+    cd WhiteSur-icon-theme
+    chmod +x install.sh
+    ./install.sh -a
+    cd ..
+    rm -rf WhiteSur-icon-theme
+    echo "Les icônes ont été installé avec succès. Veuillez redémarrer vos applications Qt pour voir les changements."
+    echo "n'oublier pas de choisir les icons de macos dans les parametres de qt"
+
     # echo -e "${GREEN}Whitesur theme installation completed.${NC}"
     echo -e "${GREEN} veuillez installer les themes copié sur ~/.config/Kvantum/ manuellement avec Kvantum ${NC}"
 fi
@@ -222,3 +232,5 @@ if confirm_action "Do you want to add script run_at_startup.sh to run some comma
     echo "Configuration terminée. Le script sera exécuté automatiquement au démarrage."
 
 fi
+
+
