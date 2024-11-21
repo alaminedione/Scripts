@@ -137,7 +137,7 @@ if confirm_action "Do you want to set up the BlackArch repository?"; then
 fi
 
 # Step 5: install whitesur (qt macbook theme)
-if confirm_action "Do you want to install whitesur theme(a macbook theme for qt based app)?"; then
+if confirm_action "Do you want to install whitesur theme(MacOS like theme for all gtk based app or even desktops)?"; then
     echo -e "${YELLOW}Installing whitesur theme...${NC}"
     # Cloner le dépôt Git
     git clone https://github.com/vinceliuice/WhiteSur-kde.git
