@@ -177,3 +177,48 @@ if confirm_action "Do you want to install whitesur theme(MacOS like theme for al
     # echo -e "${GREEN}Whitesur theme installation completed.${NC}"
     echo -e "${GREEN} veuillez installer les themes copié sur ~/.config/Kvantum/ manuellement avec Kvantum ${NC}"
 fi
+
+# add script run_at_startup to run some commands at startup
+if confirm_action "Do you want to add script run_at_startup.sh to run some commands at startup?"; then
+    echo -e "${YELLOW}Adding script run_at_startup.sh to run some commands at startup...${NC}"
+
+    # Vérifier si le script run_at_start.sh existe
+    if [ ! -f "run_at_start.sh" ]; then
+        echo "Erreur : le fichier run_at_start.sh n'existe pas dans le répertoire courant."
+        exit 1
+    fi
+
+    # Copier le script dans /etc/profile.d/
+    sudo cp run_at_start.sh /etc/profile.d/
+
+    # Vérifier si la commande cp a réussi
+    if [ $? -eq 0 ]; then
+        echo "Le script 'run_at_start.sh' a été copié avec succès dans '/etc/profile.d/'."
+    else
+        echo "Erreur lors de la copie du script."
+        exit 1
+    fi
+
+    # Ajouter l'utilisateur au fichier sudoers pour exécuter le script sans mot de passe
+    USERNAME=$(whoami)
+
+    # Vérifier si l'utilisateur existe déjà dans le fichier sudoers
+    if sudo grep -q "^$USERNAME ALL=(ALL) NOPASSWD: /etc/profile.d/run_at_start.sh" /etc/sudoers; then
+        echo "L'utilisateur '$USERNAME' est déjà configuré pour exécuter le script sans mot de passe."
+    else
+        # Ajouter la ligne au fichier sudoers en utilisant un éditeur temporaire
+        {
+            echo "$USERNAME ALL=(ALL) NOPASSWD: /etc/profile.d/run_at_start.sh"
+        } | sudo tee -a /etc/sudoers >/dev/null
+
+        if [ $? -eq 0 ]; then
+            echo "L'utilisateur '$USERNAME' a été ajouté au fichier sudoers avec succès."
+        else
+            echo "Erreur lors de l'ajout de l'utilisateur au fichier sudoers."
+            exit 1
+        fi
+    fi
+
+    echo "Configuration terminée. Le script sera exécuté automatiquement au démarrage."
+
+fi
