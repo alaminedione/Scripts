@@ -135,3 +135,45 @@ if confirm_action "Do you want to set up the BlackArch repository?"; then
     echo -e "${YELLOW}Updating the system with BlackArch repository...${NC}"
     sudo pacman -Syyu
 fi
+
+# Step 5: install whitesur (qt macbook theme)
+if confirm_action "Do you want to install whitesur theme(a macbook theme for qt based app)?"; then
+    echo -e "${YELLOW}Installing whitesur theme...${NC}"
+    # Cloner le dépôt Git
+    git clone https://github.com/vinceliuice/WhiteSur-kde.git
+
+    # Entrer dans le répertoire Kvantum
+    cd WhiteSur-kde/Kvantum || {
+        echo "Échec de l'accès au répertoire Kvantum"
+        exit 1
+    }
+
+    # Installer le thème WhiteSur
+    if [ -d "WhiteSur" ]; then
+        cp -r WhiteSur ~/.config/Kvantum/ # Copier le thème dans le répertoire de configuration de Kvantum
+        echo "Thème WhiteSur copié avec succès."
+    else
+        echo "Le répertoire WhiteSur n'existe pas."
+    fi
+
+    # Installer le thème WhiteSur-opaque
+    if [ -d "WhiteSur-opaque" ]; then
+        cp -r WhiteSur-opaque ~/.config/Kvantum/ # Copier le thème dans le répertoire de configuration de Kvantum
+        echo "Thème WhiteSur-opaque copié avec succès."
+    else
+        echo "Le répertoire WhiteSur-opaque n'existe pas."
+    fi
+
+    # Appliquer les thèmes avec Kvantum Manager
+    kvantummanager --set-theme WhiteSur        # Appliquer le thème WhiteSur
+    kvantummanager --set-theme WhiteSur-opaque # Appliquer le thème WhiteSur-opaque
+
+    echo "Les thèmes ont été appliqués avec succès. Veuillez redémarrer vos applications Qt pour voir les changements."
+
+    # Supprimer le répertoire Kvantum
+    cd ..
+    rm -rf Kvantum
+
+    # echo -e "${GREEN}Whitesur theme installation completed.${NC}"
+    echo -e "${GREEN} veuillez installer les themes copié sur ~/.config/Kvantum/ manuellement avec Kvantum ${NC}"
+fi
