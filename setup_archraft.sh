@@ -67,7 +67,7 @@ if confirm_action "Do you want to install packages?"; then
         "megasync-bin"
         "ungoogled-chromium-bin"
         "telegram-desktop"
-        "redshift"
+        # "redshift"
         "kitty"
         "obsidian"
         "zed"
@@ -91,6 +91,16 @@ if confirm_action "Do you want to install packages?"; then
         "eza"
         "mycli"
         "mariadb"
+        "gammastep"
+        "fastfetch"
+        "onefetch"
+        "qemu-full"
+        "vitualbox"
+        "stacer"
+        "onlyoffice"
+        "xbeset",
+        "hyperfine"
+
     )
 
     # Select packages to install
@@ -232,5 +242,3 @@ if confirm_action "Do you want to add script run_at_startup.sh to run some comma
     echo "Configuration terminée. Le script sera exécuté automatiquement au démarrage."
 
 fi
-
-
