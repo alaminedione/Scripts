@@ -99,7 +99,8 @@ if confirm_action "Do you want to install packages?"; then
         "stacer"
         "onlyoffice"
         "xbeset",
-        "hyperfine"
+        "hyperfine",
+	"hoppscotch-bin"
 
     )
 
